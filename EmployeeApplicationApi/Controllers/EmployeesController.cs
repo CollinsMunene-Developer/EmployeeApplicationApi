@@ -1,5 +1,7 @@
+using EmployeeApplicationApi.Database;
 using EmployeeApplicationApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeApplicationApi.Controllers
 {
@@ -10,21 +12,21 @@ namespace EmployeeApplicationApi.Controllers
     public class EmployeesController : ControllerBase
     {
         private readonly ILogger<EmployeesController> _logger;
+        private readonly EmployeeDbContext _dbContext;
 
-        public EmployeesController(ILogger<EmployeesController> logger)
+        public EmployeesController(EmployeeDbContext dbContext , ILogger<EmployeesController> logger)
         {
             _logger = logger;
-        }
+            _dbContext = dbContext;
+        }   
 
-        [HttpGet(Name = "GetEmployees")]
+        [HttpGet]
 
-        public IEnumerable<Employee> Get()
+        public async Task<IEnumerable<Employee>> GetEmployees()
         {
-            return new List<Employee>
-            {
-                new Employee(Guid.NewGuid(), "John", "Doe"),
-                new Employee(Guid.NewGuid(), "Jane", "Doe")
-            };
+            _logger. LogInformation("Requestin g all employees");
+           return await  _dbContext.Employees.ToListAsync();
+
         }
 
     }
