@@ -24,10 +24,22 @@ namespace EmployeeApplicationApi.Controllers
 
         public async Task<IEnumerable<Employee>> GetEmployees()
         {
-            _logger. LogInformation("Requestin g all employees");
+            _logger. LogInformation("Requesting all employees");
            return await  _dbContext.Employees.ToListAsync();
 
         }
+
+        [HttpPost]
+        public async Task<ActionResult<Employee>> CreateEmployee(string name, string surname)
+        {
+            var employee = new Employee(Guid.NewGuid(), name, surname);
+            _dbContext.Employees.Add(employee);
+           await _dbContext.SaveChangesAsync();
+
+           return CreatedAtAction(nameof(CreateEmployee), new {id = employee.Id}, employee);    
+
+        }
+
 
     }
 }
