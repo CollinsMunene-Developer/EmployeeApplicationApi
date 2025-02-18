@@ -7,4 +7,7 @@ curl --silent --output docker-compose.yml https://raw.githubusercontent.com/conf
 
 
 #starting and downloading all the containers
+
+
+
 docker compose up -d
