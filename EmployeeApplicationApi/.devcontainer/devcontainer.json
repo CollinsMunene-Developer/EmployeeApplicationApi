@@ -1,7 +1,7 @@
 
 {
     "name": "cmg-azcontreg-worker",
-    "dockerFile": "Dockerfile.Dev",
+    "dockerFile": "Dockerfile.dev",
     "customizations": {
       "vscode": {
         "settings": {
@@ -16,7 +16,7 @@
         ]
       }
     },
-    "postCreateCommand": "dotnet restore ./cmg-azcontreg-worker.csproj",
+    "postCreateCommand": "dotnet restore ./EmployeeApplicationApi.csproj",
     "runArgs": ["--privileged"],
     "mounts": [
       "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"

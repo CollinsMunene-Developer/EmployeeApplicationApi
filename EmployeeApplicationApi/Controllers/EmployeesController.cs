@@ -38,9 +38,9 @@ namespace EmployeeApplicationApi.Controllers
             _dbContext.Employees.Add(employee);
             await _dbContext.SaveChangesAsync();
 
-            var message = new Message<Guid, string>()
+            var message = new Message<string, string>()
             {
-                Key = employee.Id,
+                Key = employee.Id.ToString(),
                 Value = JsonSerializer.Serialize(employee)
             };
 
@@ -59,8 +59,9 @@ namespace EmployeeApplicationApi.Controllers
 
             };
 
-            var producer = new ProducerBuilder<Guid, string>(producerConfig).Build();
-           await  producer.ProduceAsync("", message );
+            var producer = new ProducerBuilder<string, string>(producerConfig) 
+             .Build();
+           await  producer.ProduceAsync("employeeTopic", message );
            producer.Dispose()
             ;
 

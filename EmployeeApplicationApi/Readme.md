@@ -11,3 +11,7 @@ curl --silent --output docker-compose.yml https://raw.githubusercontent.com/conf
 
 
 docker compose up -d
+
+#linux
+curl --silent https://api.github.com/repos/confluentinc/cp-all-in-one/releases/latest | grep "tag_name"
+
